@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.active-link {
+  background-color: #b45309; /* azul brillante */
+  color: white;
+  box-shadow: 0 4px 6px rgba(30, 64, 175, 0.5);
+  border-radius: 9999px; /* para que sea redondo igual que rounded-full */
+}
+

@@ -1,0 +1,169 @@
+<div class="max-w-md mx-auto">
+  <!-- Card del formulario de pago -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 text-center">
+        <h2 class="text-2xl font-bold mb-2">Procesar Pago</h2>
+        <p class="text-orange-100">Selecciona tu método de pago preferido</p>
+    </div>
+
+    <!-- Contenido del formulario -->
+    <div class="p-6">
+        <!-- Resumen del pago -->
+        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-600">Membresía {{ membresia()?.nombre }}</span>
+                <span class="font-semibold">${{ membresia()?.precio }}</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-600">Duración</span>
+                <span class="text-gray-800">{{ membresia()?.duracion_dias }} días</span>
+            </div>
+            <hr class="my-3">
+            <div class="flex justify-between items-center">
+                <span class="text-lg font-bold text-gray-800">Total a pagar</span>
+                <span class="text-2xl font-bold text-orange-600">${{ membresia()?.precio }}</span>
+            </div>
+        </div>
+
+        <!-- Selección de método de pago -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3">Método de pago</label>
+
+            <!-- Opción: Tarjeta de crédito/débito -->
+            <div class="payment-method-card border-2 border-gray-200 rounded-lg p-4 mb-3 cursor-pointer"
+                  [class]="{'border-orange-600': metodoSeleccionado() === 'tarjeta'}"
+                  (click)="metodoPagoSeleccionado('tarjeta')" id="card-option">
+                <div class="flex items-center">
+                    <input type="radio" id="payment-card" name="payment-method" value="card" class="mr-3 text-orange-600 focus:ring-orange-500" [checked]="metodoSeleccionado() === 'tarjeta'">
+                    <div class="flex-1">
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                            <span class="font-medium text-gray-700">Tarjeta de crédito/débito</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Visa, Mastercard, American Express</p>
+                    </div>
+                    <div class="flex space-x-1">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNTFBNSIvPgo8cGF0aCBkPSJNMTEuNzMzIDEyLjQzM0gxMC4yNjJMMTEuNDYgNy41NjdIMTIuOTNMMTEuNzMzIDEyLjQzM1pNMTguNTIgMTAuMTU3QzE4LjUyIDkuNjcgMTguMTY3IDkuMzY3IDE3LjQ2IDkuMzY3QzE2Ljk5MyA5LjM2NyAxNi40NiA5LjU0IDE2LjA2IDkuODc3TDE1LjY2IDguNDNDMTYuMTkzIDguMDMgMTYuOTI3IDcuNzMgMTcuODI3IDcuNzNDMTkuNDYgNy43MyAyMC4zMjcgOC42NjMgMjAuMzI3IDEwLjAzQzIwLjMyNyAxMS4zIDIwLjAyNyAxMS45OTcgMTkuMTI3IDEyLjgzSDE4LjE2TDIwLjM2IDEyLjQzM1YxMS4zNjNIMTguNTJWMTAuMTU3WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+" alt="Visa" class="w-8 h-5">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iI0VCMDAxQiIvPgo8cGF0aCBkPSJNMTEuNSA2SDEyLjVWMTRIMTEuNVY2Wk0xNyA2SDE2VjE0SDE3VjZaTTE5LjUgOEwxNyAxMEwyMCAxMkwxOS41IDhaTTEyIDhMMTUgMTBMMTIgMTJWOFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==" alt="Mastercard" class="w-8 h-5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opción: Efectivo -->
+            <div class="payment-method-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer"
+                  [class]="{'border-orange-500': metodoSeleccionado() === 'efectivo'}"
+                  (click)="metodoPagoSeleccionado('efectivo')" id="cash-option">
+                <div class="flex items-center">
+                    <input type="radio" id="payment-cash" name="payment-method" value="cash" class="mr-3 text-orange-600 focus:ring-orange-500" [checked]="metodoSeleccionado() === 'efectivo'">
+                    <div class="flex-1">
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span class="font-medium text-gray-700">Pago en efectivo</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Pago directo en recepción</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de tarjeta (oculto por defecto) class="hidden fade-in" -->
+        @if(metodoSeleccionado() === 'tarjeta') {
+          <div id="card-form">
+              <div class="space-y-4 mb-6">
+                  <!-- Número de tarjeta -->
+                  <div>
+                      <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Número de tarjeta</label>
+                      <input type="text" id="card-number"
+                        placeholder="1234 5678 9012 3456"
+                        class="card-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        maxlength="19" (input)="formatoTarjetaNumero($event)">
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                      <!-- Fecha de vencimiento -->
+                      <div>
+                          <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-1">Vencimiento</label>
+                          <input type="text" id="expiry-date" placeholder="MM/AA"
+                                  class="card-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                  maxlength="5" (input)="formatoFechaExpiracion($event)">
+                      </div>
+
+                      <!-- CVV -->
+                      <div>
+                          <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                          <input type="text" id="cvv" placeholder="123"
+                                  class="card-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                  maxlength="4">
+                      </div>
+                  </div>
+
+                  <!-- Nombre del titular -->
+                  <div>
+                      <label for="cardholder-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre del titular</label>
+                      <input type="text" id="cardholder-name" placeholder="Juan Pérez"
+                              class="card-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                              style="text-transform: uppercase;">
+                  </div>
+              </div>
+          </div>
+        }
+
+        <!-- Información de efectivo (oculto por defecto) class="hidden fade-in" -->
+        @if (metodoSeleccionado() === 'efectivo') {
+          <div id="cash-info">
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                  <div class="flex items-start">
+                      <svg class="w-5 h-5 text-yellow-600 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      </svg>
+                      <div>
+                          <h3 class="text-sm font-medium text-yellow-800 mb-1">Instrucciones para pago en efectivo</h3>
+                          <ul class="text-sm text-yellow-700 space-y-1">
+                              <li>• Acércate a recepción con el monto exacto</li>
+                              <li>• Menciona tu nombre y tipo de membresía</li>
+                              <li>• Recibirás tu comprobante de pago</li>
+                              <li>• Tu membresía se activará inmediatamente</li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        }
+
+        <!-- Términos y condiciones -->
+        <div class="mb-6">
+            <label class="flex items-center">
+                <input type="checkbox" id="terms"
+                  class="rounded border-gray-300 text-orange-600 focus:ring-orange-500 mr-2"
+                  (change)="actualizarTerminos($event)">
+                <span class="text-sm text-gray-600">
+                    Acepto los <a href="#" class="text-orange-600 hover:text-orange-700 underline">términos y condiciones</a>
+                    y la <a href="#" class="text-orange-600 hover:text-orange-700 underline">política de privacidad</a>
+                </span>
+            </label>
+        </div>
+
+        <!-- Botón de pago -->
+        <button id="pay-button" (click)="procesarPago()"
+                class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                [disabled]="metodoSeleccionado() === null">
+            <span id="pay-button-text">{{ textoBtn() }}</span>
+        </button>
+
+        <!-- Información de seguridad -->
+        <div class="mt-4 text-center">
+            <div class="flex items-center justify-center text-sm text-gray-500">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                Pago seguro y protegido
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

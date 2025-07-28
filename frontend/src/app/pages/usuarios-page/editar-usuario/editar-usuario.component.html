@@ -1,0 +1,148 @@
+<div class="create-user-container">
+  <div class="form-header">
+    <div class="header-icon">
+      <i class='bx bxs-user-detail'></i>
+    </div>
+    <h2 class="form-title">Editar Usuario</h2>
+    <p class="form-subtitle">Modifica los datos del usuario</p>
+  </div>
+
+  <div class="user-form">
+    <form [formGroup]="formulario" (ngSubmit)="guardarCambios()">
+
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre Completo *</label>
+        <input
+          type="text"
+          id="nombre"
+          class="form-input"
+          placeholder="Ingresa el nombre completo"
+          formControlName="nombre"
+        />
+        @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+          <div class="field-error">El nombre es obligatorio</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="correo" class="form-label">Correo Electrónico *</label>
+        <input
+          type="email"
+          id="correo"
+          class="form-input"
+          placeholder="ejemplo@email.com"
+          formControlName="correo"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="rol" class="form-label">Rol del Usuario *</label>
+        <select id="rol" class="form-input form-select" formControlName="rol">
+          <option value="">Selecciona un rol</option>
+          <option value="cliente">Cliente</option>
+          <option value="entrenador">Entrenador</option>
+          <option value="administrador">Administrador</option>
+        </select>
+        @if (formulario.get('rol')?.invalid && formulario.get('rol')?.touched) {
+          <div class="field-error">El rol es obligatorio</div>
+        }
+      </div>
+
+      @if (false) {
+        <div class="form-group">
+          <label for="membresia" class="form-label">Tipo de Membresía</label>
+          <select id="membresia" class="form-input form-select" formControlName="membresia" (change)="mostrarInfoMembresia()">
+            <option value="">Selecciona una membresía</option>
+            @for (m of membresias; track $index) {
+              <option value="{{ m.id }}">Membresía {{ m.nombre }} - ${{ m.precio }} / {{ m.duracion_dias }} días </option>
+            }
+          </select>
+
+          @if (mostrarInfo) {
+            <div class="membership-info">
+              <div class="membership-card">
+                <h4>{{ membresiaSeleccionada?.nombre }}</h4>
+                <p class="membership-description">{{ membresiaSeleccionada?.descripcion }}</p>
+                <div class="membership-price">
+                  <span class="price">${{ membresiaSeleccionada?.precio }}</span>
+                  <span class="duration">{{ membresiaSeleccionada?.duracion_dias }} días</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+
+      <div class="form-group">
+        <label for="contrasena" class="form-label">Contraseña *</label>
+        <div class="password-container">
+          <input
+            type="{{ mostrarContrasena ? 'text' : 'password' }}"
+            id="contrasena"
+            class="form-input password-input"
+            placeholder="Mínimo 8 caracteres"
+            formControlName="contrasena"
+          />
+          <button type="button" class="password-toggle" (click)="togglePassword()">
+            <i [class]="mostrarContrasena ? 'bx bx-show' : 'bx bx-low-vision'"></i>
+          </button>
+        </div>
+        @if (!formulario.get('contrasena')?.invalid) {
+          <div class="field-success">
+            Nota: Escribe una nueva contraseña solo si deseas cambiarla.
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="confirmarContrasena" class="form-label">Confirmar Contraseña *</label>
+        <div class="password-container">
+          <input
+            type="{{ mostrarConfirmar ? 'text' : 'password' }}"
+            id="confirmarContrasena"
+            class="form-input password-input"
+            placeholder="Repite la contraseña"
+            formControlName="confirmarContrasena"
+          />
+          <button type="button" class="password-toggle" (click)="toggleConfirmar()">
+            <i [class]="mostrarConfirmar ? 'bx bx-show' : 'bx bx-low-vision'"></i>
+          </button>
+        </div>
+        @if (formulario.hasError('contrasenaNoCoincide') && formulario.get('confirmarContrasena')?.touched) {
+          <div class="field-error">Las contraseñas no coinciden</div>
+        }
+        @if (!formulario.get('contrasena')?.invalid) {
+          <div class="field-success">
+            Nota: Escribe una nueva contraseña solo si deseas cambiarla.
+          </div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success" [disabled]="formulario.invalid">
+          <i class='bx bx-save icon-save text-xl'></i>
+          Guardar Cambios
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+          <i class="icon-clear bx bx-trash text-xl"></i>
+          Limpiar
+        </button>
+        <button type="button" class="btn btn-cancel" (click)="cancelarEdicion()">
+          <i class="icon-cancel bx bx-x text-2xl"></i>
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="form-info">
+    <div class="info-card">
+      <h3>Información Importante</h3>
+      <ul class="info-list">
+        <li>Todos los campos marcados con (*) son obligatorios</li>
+        <li>La contraseña puede dejarse vacía si no deseas modificarla</li>
+      </ul>
+    </div>
+  </div>
+</div>

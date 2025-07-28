@@ -1,0 +1,15 @@
+<!-- Header con título y botón agregar -->
+<app-encabezado
+  [titulo]="'Gestión de Membresías'"
+  [descripcion]="'Panel de administración'"
+  [textoAgregar]="'Nueva Membresía'"
+  [ruta]="'/membresias/crear'">
+</app-encabezado>
+
+<!-- Tabla de administración -->
+<app-tabla
+  [data]="membresias()"
+  [columnas]="columnas"
+  [rutaEditar]="'membresias'"
+  (eliminado)="alEliminar($event)"
+></app-tabla>

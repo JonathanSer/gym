@@ -1,0 +1,15 @@
+<div class="container mx-auto px-4 py-8">
+  <app-encabezado
+    [titulo]="'Gestión de Usuarios'"
+    [descripcion]="'Panel de administración'"
+    [textoAgregar]="'Nuevo usuario'"
+    [ruta]="'/usuarios/crear'">
+  </app-encabezado>
+
+  <app-tabla
+    [data]="usuarios"
+    [columnas]="columnas"
+    [rutaEditar]="'usuarios'"
+    (eliminado)="eliminarUsuario($event)">
+  </app-tabla>
+</div>

@@ -1,0 +1,8 @@
+<div>
+  <button
+    [class]="'text-white p-2 rounded-lg transition-colors duration-200 shadow-sm ' + bg() + ' hover:' + hover()"
+    (click)="accion()"
+    title="(title)">
+    <ng-content></ng-content>
+  </button>
+</div>

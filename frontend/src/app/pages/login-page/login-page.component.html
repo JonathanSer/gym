@@ -1,0 +1,25 @@
+<div class="contenido">
+  <div class="box">
+    <div class="container">
+      <div class="top">
+        <img src="https://cdn-icons-png.flaticon.com/128/10136/10136194.png" alt="FitZone Logo" class="logo" />
+        <header>FitZone Gym</header>
+      </div>
+      <form (ngSubmit)="iniciarSesion()">
+        <div class="input-box">
+          <input [(ngModel)]="correo" name="correo" type="text" class="input" placeholder="Correo" >
+          <i class='bx bx-user'></i>
+        </div>
+
+        <div class="input-box">
+          <input [(ngModel)]="contrasena" name="contrasena" type="password" class="input" placeholder="Contraseña" >
+          <i class="bx bx-lock-alt"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="submit" class="submit" value="Ingresar" >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
