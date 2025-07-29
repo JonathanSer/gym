@@ -184,6 +184,7 @@ POST /api/usuarios
 Función: Crea un nuevo usuario.
 
 Controlador/Método: UsuarioController@store
+<img width="1060" height="773" alt="image" src="https://github.com/user-attachments/assets/f9f17c89-1569-4cad-8690-28303d329d80" />
 
 PUT /api/usuarios/{id}
 
