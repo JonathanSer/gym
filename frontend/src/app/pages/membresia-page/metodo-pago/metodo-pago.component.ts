@@ -89,11 +89,18 @@ export class MetodoPagoComponent {
       }
 
       this.mostrarAlerta('success', 'Procesando pago', 'Quedará en pendiente hasta realizar el pago', 1500);
-      //console.log('Datos enviados: ', membresiaUsuario)
+      console.log('Datos enviados: ', membresiaUsuario)
       this.membresiaUsuarioService.crearMembresia(membresiaUsuario).subscribe(usuario => {
-        //console.log(usuario);
+        if (typeof usuario === 'string') {
+          Swal.fire({
+            icon: 'error',
+            title: 'No se puede agregar',
+            text: 'Ya tienes dos membresías activas, no puedes agregar una más.'
+          });
+          this.router.navigate(['/inicio']);
+        }
+        this.router.navigate(['/inicio']);
       })
-      this.router.navigate(['/inicio']);
     } else {
       const membresiaUsuario: MembresiaActual = {
         user_id: this.me()?.id,
@@ -101,7 +108,7 @@ export class MetodoPagoComponent {
         activa: 2
       }
       this.membresiaUsuarioService.crearMembresia(membresiaUsuario).subscribe(usuario => {
-        //console.log(usuario);
+
       })
       this.mostrarAlerta('success', 'Pasar a pagar', 'Quedara en pendiente hasta realizar el pago', 2000);
       this.router.navigate(['/inicio']);

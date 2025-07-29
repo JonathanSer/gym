@@ -117,10 +117,22 @@
             <i [class]="mostrarContrasena ? 'bx bx-show' : 'bx bx-low-vision'"></i>
           </button>
         </div>
-        @if (formulario.get('contrasena')?.invalid && formulario.get('contrasena')?.touched) {
-          <div class="field-error">
-            La contraseña debe tener al menos 8 caracteres
-          </div>
+        @if (formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors) {
+            @if (formulario.get('contrasena')?.errors?.['required']) {
+              <div class="field-error">
+                 La contraseña es obligatoria
+              </div>
+            }
+            @if (formulario.get('contrasena')?.errors?.['minlength']) {
+              <div class="field-error">
+                La contraseña debe tener al menos 8 caracteres
+              </div>
+            }
+            @if (formulario.get('contrasena')?.errors?.['pattern']) {
+              <div class="field-error">
+                La contraseña debe incluir una mayúscula, un número y un carácter especial
+              </div>
+            }
         }
       </div>
 

@@ -6,12 +6,12 @@
                 <div class="gradient-bg text-white p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-2xl font-bold mb-2">Membresía {{ usuario().membresia_actual?.membresia?.nombre }}</h2>
+                            <h2 class="text-2xl font-bold mb-2">{{ membresia() }}</h2>
                             <p class="text-orange-100">Estado: {{ estado() }}</p>
                         </div>
                         <div class="text-right">
-                            <div class="text-3xl font-bold">${{ usuario().membresia_actual?.membresia?.precio }}</div>
-                            <div class="text-orange-100 text-sm">{{ usuario().membresia_actual?.membresia?.duracion_dias }} días</div>
+                            <div class="text-3xl font-bold">${{ usuario().membresia_actual?.membresia?.precio ?? 0 }}</div>
+                            <div class="text-orange-100 text-sm">{{ usuario().membresia_actual?.membresia?.duracion_dias ?? 0 }} días</div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm text-gray-600">Fecha de inicio</p>
-                        <p class="text-lg font-semibold text-gray-800">{{ usuario().membresia_actual?.fecha_inicio | date:'dd' }} {{ usuario().membresia_actual?.fecha_inicio | date:'MMMM' | i18nSelect:meses }} {{ usuario().membresia_actual?.fecha_inicio | date:'yyyy' }}</p>
+                        <p class="text-lg font-semibold text-gray-800">{{ fechaInicio() | date:'dd/MM/yyyy' }}</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm text-gray-600">Fecha de vencimiento</p>
-                        <p class="text-lg font-semibold text-gray-800">{{ usuario().membresia_actual?.fecha_expiracion | date:'dd' }} {{ usuario().membresia_actual?.fecha_expiracion | date:'MMMM' | i18nSelect:meses }} {{ usuario().membresia_actual?.fecha_expiracion | date:'yyyy' }}</p>
+                        <p class="text-lg font-semibold text-gray-800">{{ fechaFin() | date:'dd/MM/yyyy' }}</p>
                     </div>
                 </div>
             </div>
@@ -116,12 +116,21 @@
                     Características incluidas
                 </h3>
                 <ul class="space-y-3">
-                    @for (caracteristica of listarDescripcionMembresia(usuario().membresia_actual?.membresia?.descripcion!); track $index) {
+                    @if(usuario().membresia_actual?.membresia){
+                      @for (caracteristica of listarDescripcionMembresia(usuario().membresia_actual?.membresia?.descripcion!); track $index) {
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">{{ caracteristica }}</span>
+                        </li>
+                      }
+                    } @else {
                       <li class="flex items-center">
                           <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                           </svg>
-                          <span class="text-gray-700">{{ caracteristica }}</span>
+                          <span class="text-gray-700">Necesitas adquirir una membresia para tener acceso al gimnasio</span>
                       </li>
                     }
 
@@ -137,11 +146,11 @@
                     Acciones rápidas
                 </h3>
                 <div class="space-y-3">
-                    <button class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200 flex items-center">
+                    <button  (click)="cambioTextoAsistencia()" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200 flex items-center">
                         <svg class="w-5 h-5 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <span class="font-medium text-gray-700">Reportar asistencia</span>
+                        <span class="font-medium text-gray-700">Reportar {{ textoRegistro() }}</span>
                     </button>
                     <button class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200 flex items-center">
                         <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

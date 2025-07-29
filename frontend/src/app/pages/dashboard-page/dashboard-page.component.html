@@ -1,6 +1,9 @@
 @if (usuario()?.rol === 'administrador') {
-  <p>Falta</p>
+  <app-admin-dashboard></app-admin-dashboard>
 }
 @if (usuario()?.rol === 'cliente') {
   <app-usuario-dashboard [usuario]="usuario()!"></app-usuario-dashboard>
+}
+@if (usuario()?.rol === 'entrenador') {
+  <app-entrenador-dashboard></app-entrenador-dashboard>
 }

@@ -10,8 +10,8 @@ class Membresia extends Model
 
     public function usuarios()
     {
-        return $this->belongsToMany(User::class, 'membresias_usuarios', 'membresia_id', 'usuario_id')
-                    ->withPivot('fecha_inicio', 'fecha_fin', 'estado')
+        return $this->belongsToMany(User::class, 'membresia_usuario', 'membresia_id', 'user_id')
+                    ->withPivot('fecha_inicio', 'fecha_expiracion', 'activa')
                     ->withTimestamps();
     }
 }

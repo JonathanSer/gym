@@ -11,6 +11,7 @@ import { CrearUsuarioComponent } from './pages/usuarios-page/crear-usuario/crear
 import { EditarUsuarioComponent } from './pages/usuarios-page/editar-usuario/editar-usuario.component';
 import { MetodoPagoComponent } from './pages/membresia-page/metodo-pago/metodo-pago.component';
 import { adminGuard } from './guards/admin.guard';
+import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorized-page.component';
 
 export const routes: Routes = [
   {
@@ -51,7 +52,7 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosPageComponent,
-    canActivate: [authGuard, /*adminGuard*/],
+    canActivate: [authGuard, adminGuard],
     title: 'Usuarios',
     data: {'icono': 'bx bx-user'}
   },
@@ -72,6 +73,10 @@ export const routes: Routes = [
     component: PerfilUsuarioComponent,
     canActivate: [authGuard],
     title: 'Perfil'
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedPageComponent
   },
   {
     path: '**',

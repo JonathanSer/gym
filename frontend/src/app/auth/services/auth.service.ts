@@ -40,7 +40,6 @@ export class AuthService {
   }
 
   getUsuarioActual(): Usuario | null {
-    console.log(this.usuarioActual)
     return this.usuarioActual;
   }
 

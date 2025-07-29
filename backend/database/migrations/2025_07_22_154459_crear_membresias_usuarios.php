@@ -9,12 +9,14 @@ class CrearMembresiasUsuarios extends Migration
     public function up()
     {
         Schema::create('membresias_usuarios', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('membresia_id')->constrained('membresias')->onDelete('cascade');
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->enum('estado', ['activo', 'vencido', 'cancelado'])->default('activo');
+            $table->tinyInteger('activa')->default(1);
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_expiracion')->nullable();
+
             $table->timestamps();
         });
     }

@@ -1,0 +1,37 @@
+<!-- Archivo Angular (HTML) usando TailwindCSS -->
+ <!--class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#ff6b35] via-[#f7931e] to-[#ff8c42] p-4 overflow-hidden"-->
+<div class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#ff6b35] via-[#f7931e] to-[#ff8c42] p-4">
+  <!-- Fondo de Partículas -->
+  <div id="particles" class="absolute inset-0 z-0"></div>
+
+  <div class="relative z-10 w-full max-w-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl px-8 py-12 text-center">
+    <h1 class="text-[7rem] font-black text-white drop-shadow-lg animate-bounce">401</h1>
+    <h2 class="uppercase text-white/80 tracking-widest mb-6">Autorización Requerida</h2>
+
+    <!-- Personajes-->
+    <div class="flex items-end justify-center space-x-8 h-40 mb-8">
+      <img src="https://cdn-icons-png.flaticon.com/512/18713/18713869.png" alt="Acceso no autorizado" class="w-32 h-32 mx-auto animate-pulse" />
+    </div>
+
+    <!-- Mensajes -->
+    <h3 class="text-3xl font-bold text-white drop-shadow mb-4">&iexcl;Alto ahí!</h3>
+    <p class="text-lg text-white/90 mb-2">No tienes autorización para acceder a esta área restringida.</p>
+    <p class="text-base italic text-white/70 mb-8">Parece que necesitas las credenciales correctas para continuar.</p>
+
+    <!-- Botones <a routerLink="/login" class="px-6 py-3 text-[#ff6b35] bg-white hover:scale-105 border-2 border-white/80 rounded-full font-semibold transition shadow-md">Iniciar Sesión</a>-->
+    <div class="flex flex-wrap justify-center gap-4 mb-8">
+
+      <a routerLink="/" class="px-6 py-3 text-white bg-white/20 hover:bg-white/30 border-2 border-white/50 rounded-full font-semibold transition backdrop-blur">Volver al Inicio</a>
+    </div>
+
+    <!-- Footer
+    <div class="text-sm text-white/70">
+      <p>¿Tienes problemas para acceder?</p>
+      <div class="mt-2 space-x-4">
+        <a routerLink="/contact" class="hover:text-white hover:underline">Contactar Soporte</a>
+        <a routerLink="/help" class="hover:text-white hover:underline">Centro de Ayuda</a>
+        <a routerLink="/forgot-password" class="hover:text-white hover:underline">Recuperar Contraseña</a>
+      </div>
+    </div>-->
+  </div>
+</div>

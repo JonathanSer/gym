@@ -1,0 +1,21 @@
+@keyframes guard-move {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+  }
+  @keyframes user-move {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(3px) rotate(2deg); }
+    75% { transform: translateX(-3px) rotate(-2deg); }
+  }
+  @keyframes wave-arm {
+    0%, 100% { transform: rotate(-20deg); }
+    50% { transform: rotate(-40deg); }
+  }
+  @keyframes frustrated-arm {
+    0%, 100% { transform: rotate(30deg); }
+    50% { transform: rotate(60deg); }
+  }
+  @keyframes pulse-stop {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\MembresiaUsuarioController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AsistenciaController;
 
 Route::post('login', [AuthController::class, 'login']);
 
@@ -23,3 +24,6 @@ Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
 Route::post('/usuarios', [UsuarioController::class, 'store']);
 Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
+
+Route::apiResource('asistencias', AsistenciaController::class);
+

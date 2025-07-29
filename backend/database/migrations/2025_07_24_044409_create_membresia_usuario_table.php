@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('membresia_id')->constrained()->onDelete('cascade');
             $table->boolean('activa')->default(true);
-            $table->date('fecha_inicio')->nullable()->change();
-            $table->date('fecha_expiracion')->nullable()->change();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_expiracion')->nullable();
 
             $table->timestamps();
         });

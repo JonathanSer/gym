@@ -5,6 +5,7 @@ import { Membresia } from '../../../interfaces/membresia.interface';
 import { MembresiaService } from '../../../services/membresia.service';
 import { UsuarioMembresia } from '../../../interfaces/usuario-membresia.interface';
 import { UsuarioService } from '../../../services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -34,7 +35,7 @@ export class CrearUsuarioComponent {
       correo: ['', [Validators.required, Validators.email]],
       rol: ['', Validators.required],
       membresia: [''],
-      contrasena: ['', [Validators.required, Validators.minLength(8)]],
+      contrasena: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.[A-Z])(?=.\d)(?=.[!@#$%^&()_+{}\[\]:;<>,.?~\\/-]).+$/)]],
       confirmarContrasena: ['', Validators.required]
     }, { validators: this.validarCoincidenciaContrasena });
 
@@ -55,9 +56,15 @@ export class CrearUsuarioComponent {
 
   crearUsuario() {
     if (this.formulario.invalid) {
-      this.formulario.markAllAsTouched();
-      return;
-    }
+              Swal.fire({
+              icon: 'question',
+              title: 'Faltan datos',
+              text: 'Todo campos son obligatorios.',
+              confirmButtonColor: '#d33'
+            });
+    this.formulario.markAllAsTouched();
+    return;
+  }
 
     const formulario = this.formulario.value;
 
@@ -80,12 +87,21 @@ export class CrearUsuarioComponent {
           }
         : null
     };
+    if (this.validarFormulario()) {
+      // Aquí envías el formulario
+      this.usuarioService.crearUsuario(nuevoUsuario).subscribe({
+        error: (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Debe ingresar todos los campos.',
+              confirmButtonColor: '#d33'
+            });
+        }
+      });
 
-    this.usuarioService.crearUsuario(nuevoUsuario).subscribe(() => {
-      console.log('Usuario Guardado')
-    });
-
-    this.router.navigate(['/usuarios']);
+      this.router.navigate(['/usuarios']);
+    }
   }
 
 
@@ -125,5 +141,51 @@ export class CrearUsuarioComponent {
   esCliente(): boolean {
     return this.formulario.value.rol === 'cliente'
   }
+
+  validarFormulario() {
+    if (this.formulario.invalid) {
+      const errores = [];
+
+      if (this.formulario.get('nombre')?.hasError('required')) {
+        errores.push('El nombre es obligatorio.');
+      }
+
+      if (this.formulario.get('correo')?.hasError('required')) {
+        errores.push('El correo es obligatorio.');
+      } else if (this.formulario.get('correo')?.hasError('email')) {
+        errores.push('El correo no tiene un formato válido.');
+      }
+
+      if (this.formulario.get('rol')?.hasError('required')) {
+        errores.push('El rol es obligatorio.');
+      }
+
+      if (this.formulario.get('contrasena')?.hasError('required')) {
+        errores.push('La contraseña es obligatoria.');
+      } else if (this.formulario.get('contrasena')?.hasError('minlength')) {
+        errores.push('La contraseña debe tener al menos 8 caracteres.');
+      }
+
+      if (this.formulario.get('confirmarContrasena')?.hasError('required')) {
+        errores.push('Debes confirmar la contraseña.');
+      }
+
+      if (this.formulario.errors?.['noCoinciden']) {
+        errores.push('Las contraseñas no coinciden.');
+      }
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en el formulario',
+        html: errores.join('<br>'),
+        confirmButtonText: 'Aceptar'
+      });
+
+      return false;
+    }
+
+    return true;
+}
+
 
 }
