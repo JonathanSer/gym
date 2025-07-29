@@ -130,29 +130,29 @@ export class UsuarioDashboardComponent {
     const membresia = this.usuario().membresia_actual
 
     if (this.textoRegistro() === 'Entrada' && membresia) {
-    const asistencia: Asistencia = {
-      usuario_id: this.usuario().id!,
-      usuario_membresia_id: this.usuario().membresia_actual?.id!,
-      fecha_hora_entrada: this.formatearFecha(new Date()),
-      fecha_hora_salida: null
-    };
+      const asistencia: Asistencia = {
+        usuario_id: this.usuario().id!,
+        usuario_membresia_id: this.usuario().membresia_actual?.id!,
+        fecha_hora_entrada: this.formatearFecha(new Date()),
+        fecha_hora_salida: null
+      };
 
-    console.log(asistencia);
+      console.log(asistencia);
 
-    this.asistenciaService.crearAsistencia(asistencia).subscribe({
-      next: respuesta => {
-        console.log(respuesta);
-      },
-      error: error => {
-        console.error(error);
-        if (error.status === 422) {
-          console.log('Error', 'Verifica los campos enviados. Puede haber un error en la validación.', 'error');
-        } else {
-          console.log('Error', 'Ocurrió un error al registrar la asistencia.', 'error');
+      this.asistenciaService.crearAsistencia(asistencia).subscribe({
+        next: respuesta => {
+          console.log(respuesta);
+        },
+        error: error => {
+          console.error(error);
+          if (error.status === 422) {
+            console.log('Error', 'Verifica los campos enviados. Puede haber un error en la validación.', 'error');
+          } else {
+            console.log('Error', 'Ocurrió un error al registrar la asistencia.', 'error');
+          }
         }
-      }
-    });
-  }
+      });
+    }
 
 
     this.entradaSalida.set(!this.entradaSalida());
